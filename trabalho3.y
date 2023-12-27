@@ -2,10 +2,14 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
-
+    #include "trabalho3.tab.h"
+    #include "trabalho3.lex.h"
+   
     int manutencao=2, estado_bateria=2, quantidade=0, num_manutencao=0, tarefas=0, total_quantidade=0;
     char *instrucao="", *posicao="Posto de Carregamento", *linha="", *quant_str="", *material_entrega="", *material_carro="",*material_recolha="",*aux_material="", *aux_estado="", *total_materiais="";
     float perc_bateria=100.0,aux_quant=0.0,bateria_necessaria=0.0;
+
+    int yyerror(const char* s);
 %}
 
 %union {
@@ -28,10 +32,10 @@
 %token <inteiro> NUMERO
 %token <string> STRING
 
-%start main
+%start principal
 
 %%
-main:
+principal:
     INICIO_DAS_INSTRUCOES INICIO_FIM_INSTRUCOES instrucoes FINAL_DAS_INSTRUCOES  { printf("Análise concluída com sucesso.\n"); }
     | INICIO_DAS_INSTRUCOES INICIO_INSTRUCOES INICIO_FIM_INSTRUCOES instrucoes FINAL_DAS_INSTRUCOES { printf("Análise concluída com sucesso.\n"); }
     ;
@@ -123,9 +127,9 @@ instrucoes:
 
 %%
 
-int yyerrork(char* s) {
-    fprintf(stderr, "Erro: %s\n", s);
-    return 1;
+int yyerror(const char* s) {
+    fprintf(stderr, "Parser error: %s\n", s);
+    return 0;  
 }
 
 int yylex(void);

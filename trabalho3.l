@@ -5,6 +5,7 @@
     #include <stdlib.h>
     #include <string.h>
     #include "trabalho3.tab.h"
+   
 %}
 
 INIT_ESTADO INIT-ESTADO
