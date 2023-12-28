@@ -10,6 +10,16 @@
     float perc_bateria=100.0,aux_quant=0.0,bateria_necessaria=0.0;
 
     int yyerror(const char* s);
+
+    void mostrar_estado() {
+    printf("\n----------------------------------");
+    printf("\nEstado da Bateria: %f ", perc_bateria);
+    printf("\nLocalização: %s", posicao);
+    printf("\nMateriais: %s", material_carro);
+    printf("\nQuantidade: %d", total_quantidade);
+    printf("\nVezes que foi a manutenção: %d", num_manutencao);
+    printf("\n----------------------------------\n\n");
+}
 %}
 
 %union {
@@ -29,6 +39,8 @@
 %token INICIO_ESTADO FIM_ESTADO _ESTADO
 %token INICIO_INIT_ESTADO FIM_INIT_ESTADO _INIT_ESTADO
 
+%token MANUTENCAO NUMERO PONTO_VIRGULA
+
 %token <inteiro> NUMERO
 %token <string> STRING
 
@@ -36,10 +48,12 @@
 
 %%
 principal:
-    INICIO_DAS_INSTRUCOES INICIO_FIM_INSTRUCOES instrucoes FINAL_DAS_INSTRUCOES  { printf("Análise concluída com sucesso.\n"); }
-    | INICIO_DAS_INSTRUCOES INICIO_INSTRUCOES INICIO_FIM_INSTRUCOES instrucoes FINAL_DAS_INSTRUCOES { printf("Análise concluída com sucesso.\n"); }
-    ;
+   INICIO_DAS_INSTRUCOES '{' instrucoes ';' '}' FINAL_DAS_INSTRUCOES 
+   | INICIO_DAS_INSTRUCOES '{' opcional ';' instrucoes '}' FINAL_DAS_INSTRUCOES
 
+
+opcional:
+    INIT_ESTADO '(' STRING ',' NUMERO ',' STRING ',' NUMERO ')' PONTO_VIRGULA { printf("ESTADO INICIAL: \nLocalizacao=%s, \nBateria=%d, \nMateriais=%s, \nNumManutencao=%d\n", $3, $5, $7, $9); }
 instrucoes:
     MANUTENCAO '(' NUMERO ')' PONTO_VIRGULA { 
 
@@ -120,7 +134,7 @@ instrucoes:
     | RECOLHE '(' STRING ')' PONTO_VIRGULA { printf("RECOLHE: %s\n", $3); }
     | ENTREGA '(' STRING ')' PONTO_VIRGULA { printf("ENTREGA: %s\n", $3); }
     | ESTADO '(' STRING ')' PONTO_VIRGULA { printf("ESTADO: %s\n", $3); }
-    | INIT_ESTADO '(' STRING ',' NUMERO ',' STRING ',' NUMERO ')' PONTO_VIRGULA { printf("INIT-ESTADO: Localizacao=%s, Bateria=%d, Materiais=%s, NumManutencao=%d\n", $3, $5, $7, $9); }
+    
     ;
 
 
