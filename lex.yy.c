@@ -557,11 +557,11 @@ char *yytext;
     #include <stdlib.h>
     #include <string.h>
     #include "trabalho3.tab.h"
+    #include "variaveis.h"
     char *bateria_aux, *quantidade_aux, *manutencao_aux;
-    extern int manutencao, estado_bateria, quantidade, num_manutencao, tarefas, total_quantidade,num_aux;
-    extern char *instrucao, *posicao, *linha, *quant_str, *material_entrega, *material_carro,*material_recolha,*aux_material, *aux_estado, *total_materiais;
-    extern float perc_bateria, aux_quant, bateria_necessaria;
-
+    int manutencao=2, estado_bateria=2, quantidade=0, num_manutencao=0, tarefas=0, total_quantidade=0;
+    char *instrucao="", *posicao="Posto de Carregamento", *linha="", *quant_str="", *material_entrega="", *material_carro="",*material_recolha="",*aux_material="", *aux_estado="", *total_materiais="";
+    float perc_bateria=100.0,aux_quant=0.0,bateria_necessaria=0.0;
 
 
 #line 568 "lex.yy.c"

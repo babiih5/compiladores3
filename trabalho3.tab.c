@@ -72,13 +72,12 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
-    #include "trabalho3.tab.h"
-    #include "lex.yy.c" 
-    /*#include "trabalho3.lex.h"*/
+    #include "variaveis.h"
+
     
-   
 
     int yyerror(const char* s);
+    extern int yylex(void);
 
     void mostrar_estado() {
     printf("\n----------------------------------");
@@ -90,7 +89,7 @@
     printf("\n----------------------------------\n\n");
 }
 
-#line 94 "trabalho3.tab.c"
+#line 93 "trabalho3.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -522,7 +521,7 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    38,    38,    40,    49,    50,    53
+       0,    37,    37,    39,    48,    49,    52
 };
 #endif
 
@@ -1086,21 +1085,21 @@ yyreduce:
   switch (yyn)
     {
   case 3: /* begin: INICIO '{' comandos '}' FIM  */
-#line 40 "trabalho3.y"
+#line 39 "trabalho3.y"
                                    {printf("entrou aqui");}
-#line 1092 "trabalho3.tab.c"
+#line 1091 "trabalho3.tab.c"
     break;
 
   case 6: /* comando: _MANUTENCAO  */
-#line 53 "trabalho3.y"
+#line 52 "trabalho3.y"
                      {
             printf("\nFoi à manutencao");
         }
-#line 1100 "trabalho3.tab.c"
+#line 1099 "trabalho3.tab.c"
     break;
 
 
-#line 1104 "trabalho3.tab.c"
+#line 1103 "trabalho3.tab.c"
 
       default: break;
     }
@@ -1293,7 +1292,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 61 "trabalho3.y"
+#line 60 "trabalho3.y"
 
 
 int yyerror(const char* s) {

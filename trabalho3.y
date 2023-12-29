@@ -2,13 +2,12 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
-    #include "trabalho3.tab.h"
-    #include "lex.yy.c" 
-    /*#include "trabalho3.lex.h"*/
+    #include "variaveis.h"
+
     
-   
 
     int yyerror(const char* s);
+    extern int yylex(void);
 
     void mostrar_estado() {
     printf("\n----------------------------------");
