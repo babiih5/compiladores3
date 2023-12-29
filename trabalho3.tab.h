@@ -54,38 +54,14 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    INICIO_DAS_INSTRUCOES = 258,   /* INICIO_DAS_INSTRUCOES  */
-    FINAL_DAS_INSTRUCOES = 259,    /* FINAL_DAS_INSTRUCOES  */
-    PONTO_VIRGULA = 260,           /* PONTO_VIRGULA  */
-    INICIO_FIM_INSTRUCOES = 261,   /* INICIO_FIM_INSTRUCOES  */
-    INICIO_INSTRUCOES = 262,       /* INICIO_INSTRUCOES  */
-    OPCIONAL = 263,                /* OPCIONAL  */
-    MANUTENCAO = 264,              /* MANUTENCAO  */
-    CARREGA_BATERIA = 265,         /* CARREGA_BATERIA  */
-    ENTREGA = 266,                 /* ENTREGA  */
-    RECOLHE = 267,                 /* RECOLHE  */
-    ESTADO = 268,                  /* ESTADO  */
-    INIT_ESTADO = 269,             /* INIT_ESTADO  */
-    INICIO_MANUTENCAO = 270,       /* INICIO_MANUTENCAO  */
-    FIM_MANUTENCAO = 271,          /* FIM_MANUTENCAO  */
-    _MANUTENCAO = 272,             /* _MANUTENCAO  */
-    INICIO_BATERIA = 273,          /* INICIO_BATERIA  */
-    FIM_BATERIA = 274,             /* FIM_BATERIA  */
-    _BATERIA = 275,                /* _BATERIA  */
-    INICIO_RECOLHE = 276,          /* INICIO_RECOLHE  */
-    FIM_RECOLHE = 277,             /* FIM_RECOLHE  */
-    _RECOLHE = 278,                /* _RECOLHE  */
-    INICIO_ENTREGA = 279,          /* INICIO_ENTREGA  */
-    FIM_ENTREGA = 280,             /* FIM_ENTREGA  */
-    _ENTREGA = 281,                /* _ENTREGA  */
-    INICIO_ESTADO = 282,           /* INICIO_ESTADO  */
-    FIM_ESTADO = 283,              /* FIM_ESTADO  */
-    _ESTADO = 284,                 /* _ESTADO  */
-    INICIO_INIT_ESTADO = 285,      /* INICIO_INIT_ESTADO  */
-    FIM_INIT_ESTADO = 286,         /* FIM_INIT_ESTADO  */
-    _INIT_ESTADO = 287,            /* _INIT_ESTADO  */
-    NUMERO = 288,                  /* NUMERO  */
-    STRING = 289                   /* STRING  */
+    INICIO = 258,                  /* INICIO  */
+    FIM = 259,                     /* FIM  */
+    _MANUTENCAO = 260,             /* _MANUTENCAO  */
+    _BATERIA = 261,                /* _BATERIA  */
+    _RECOLHE = 262,                /* _RECOLHE  */
+    _ENTREGA = 263,                /* _ENTREGA  */
+    _ESTADO = 264,                 /* _ESTADO  */
+    _INIT_ESTADO = 265             /* _INIT_ESTADO  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -94,12 +70,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 15 "trabalho3.y"
+#line 24 "trabalho3.y"
 
     int inteiro;
-    char* string;
+    char *str;
+    float real;
 
-#line 103 "trabalho3.tab.h"
+#line 80 "trabalho3.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

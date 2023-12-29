@@ -3,11 +3,10 @@
     #include <stdlib.h>
     #include <string.h>
     #include "trabalho3.tab.h"
-    #include "trabalho3.lex.h"
+    #include "lex.yy.c" 
+    /*#include "trabalho3.lex.h"*/
+    
    
-    int manutencao=2, estado_bateria=2, quantidade=0, num_manutencao=0, tarefas=0, total_quantidade=0,num_aux=0;
-    char *instrucao="", *posicao="Posto de Carregamento", *linha="", *quant_str="", *material_entrega="", *material_carro="",*material_recolha="",*aux_material="", *aux_estado="", *total_materiais="";
-    float perc_bateria=100.0,aux_quant=0.0,bateria_necessaria=0.0;
 
     int yyerror(const char* s);
 
@@ -29,7 +28,7 @@
 }
 
 
-%token INICIO FIM _MANUTENCAO _BATERIA _RECOLHE _ENTREGA _ESTADO
+%token INICIO FIM _MANUTENCAO _BATERIA _RECOLHE _ENTREGA _ESTADO _INIT_ESTADO
 
 
 %start begin
@@ -37,19 +36,18 @@
 %%
 
 begin: INICIO '{' '}' FIM
-        | INICIO '{' opcional ';' comandos '}' FIM
-        | INICIO '{' opcional ';' comando '}' FIM
-        | INICIO '{' comandos '}' FIM
-        | INICIO '{' comando '}' FIM
-        ;
+     /*| INICIO '{' opcional ';' comandos '}' FIM*/
+     | INICIO '{' comandos '}' FIM {printf("entrou aqui");}
+     ;
 
-opcional: 
+/*opcional: 
         _INIT_ESTADO {
             printf("\nEstado Inicial");
-        };
+        };*/
 
 
 comandos: comandos ';' comando
+        |comando
         ;
 
 comando: _MANUTENCAO {

@@ -6,9 +6,11 @@
     #include <string.h>
     #include "trabalho3.tab.h"
     char *bateria_aux, *quantidade_aux, *manutencao_aux;
-    extern int manutencao, estado_bateria, quantidade, num_manutencao, tarefas, total_quantidade;
+    extern int manutencao, estado_bateria, quantidade, num_manutencao, tarefas, total_quantidade,num_aux;
     extern char *instrucao, *posicao, *linha, *quant_str, *material_entrega, *material_carro,*material_recolha,*aux_material, *aux_estado, *total_materiais;
-    extern float perc_bateria,aux_quant,bateria_necessaria;
+    extern float perc_bateria, aux_quant, bateria_necessaria;
+
+
 
 %}
 INIT_ESTADO _INIT_ESTADO
@@ -28,18 +30,7 @@ FINAL_DAS_INSTRUCOES FIM
 {INICIO_DAS_INSTRUCOES}       return INICIO;
 {FINAL_DAS_INSTRUCOES}         return FIM;
 
-{INIT_ESTADO}\( {BEGIN(ER_INIT_ESTADO);}
-<ER_INIT_ESTADO>([A-Za-z],[0-9][1-9]*,\([A-Za-z0-9]{5},[1-9][0-9]*\),[0-9][1-9]*) { posicao=strtok(yytext, ',');
-                                                                                    bateria_aux=strtok(NULL, ',');
-                                                                                    material_carro=strtok(NULL, ',');
-                                                                                    quantidade_aux=strtok(NULL, ')');
-                                                                                    manutencao_aux=strtok(NULL, ')');
-                                                                                    perc_bateria=(float)atoi(bateria_aux);
-                                                                                    total_quantidade=atoi(quantidade_aux);
-                                                                                    num_manutencao=atoi(manutencao_aux);
-                                                                                    return _INIT_ESTADO;
-}
-<ER_INIT_ESTADO>\) {BEGIN 0;}
+
 
 {MANUTENCAO}\( {BEGIN(ER_MANUTENCAO);}
 <ER_MANUTENCAO>([0-2]) {    manutencao=atoi(yytext); return _MANUTENCAO;
@@ -48,7 +39,7 @@ FINAL_DAS_INSTRUCOES FIM
 
 
 {CARREGA-BATERIA}\( {BEGIN(ER_BATERIA);}
-<ER_BATERIA>([0-2]) {       bateria=atoi(yytext); return _BATERIA;
+<ER_BATERIA>([0-2]) {       estado_bateria=atoi(yytext); return _BATERIA;
 }
 <ER_BATERIA>\) {BEGIN 0;}
 

@@ -73,15 +73,24 @@
     #include <stdlib.h>
     #include <string.h>
     #include "trabalho3.tab.h"
-    #include "trabalho3.lex.h"
+    #include "lex.yy.c" 
+    /*#include "trabalho3.lex.h"*/
+    
    
-    int manutencao=2, estado_bateria=2, quantidade=0, num_manutencao=0, tarefas=0, total_quantidade=0;
-    char *instrucao="", *posicao="Posto de Carregamento", *linha="", *quant_str="", *material_entrega="", *material_carro="",*material_recolha="",*aux_material="", *aux_estado="", *total_materiais="";
-    float perc_bateria=100.0,aux_quant=0.0,bateria_necessaria=0.0;
 
     int yyerror(const char* s);
 
-#line 85 "trabalho3.tab.c"
+    void mostrar_estado() {
+    printf("\n----------------------------------");
+    printf("\nEstado da Bateria: %f ", perc_bateria);
+    printf("\nLocalização: %s", posicao);
+    printf("\nMateriais: %s", material_carro);
+    printf("\nQuantidade: %d", total_quantidade);
+    printf("\nVezes que foi a manutenção: %d", num_manutencao);
+    printf("\n----------------------------------\n\n");
+}
+
+#line 94 "trabalho3.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -112,44 +121,21 @@ enum yysymbol_kind_t
   YYSYMBOL_YYEOF = 0,                      /* "end of file"  */
   YYSYMBOL_YYerror = 1,                    /* error  */
   YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
-  YYSYMBOL_INICIO_DAS_INSTRUCOES = 3,      /* INICIO_DAS_INSTRUCOES  */
-  YYSYMBOL_FINAL_DAS_INSTRUCOES = 4,       /* FINAL_DAS_INSTRUCOES  */
-  YYSYMBOL_PONTO_VIRGULA = 5,              /* PONTO_VIRGULA  */
-  YYSYMBOL_INICIO_FIM_INSTRUCOES = 6,      /* INICIO_FIM_INSTRUCOES  */
-  YYSYMBOL_INICIO_INSTRUCOES = 7,          /* INICIO_INSTRUCOES  */
-  YYSYMBOL_OPCIONAL = 8,                   /* OPCIONAL  */
-  YYSYMBOL_MANUTENCAO = 9,                 /* MANUTENCAO  */
-  YYSYMBOL_CARREGA_BATERIA = 10,           /* CARREGA_BATERIA  */
-  YYSYMBOL_ENTREGA = 11,                   /* ENTREGA  */
-  YYSYMBOL_RECOLHE = 12,                   /* RECOLHE  */
-  YYSYMBOL_ESTADO = 13,                    /* ESTADO  */
-  YYSYMBOL_INIT_ESTADO = 14,               /* INIT_ESTADO  */
-  YYSYMBOL_INICIO_MANUTENCAO = 15,         /* INICIO_MANUTENCAO  */
-  YYSYMBOL_FIM_MANUTENCAO = 16,            /* FIM_MANUTENCAO  */
-  YYSYMBOL__MANUTENCAO = 17,               /* _MANUTENCAO  */
-  YYSYMBOL_INICIO_BATERIA = 18,            /* INICIO_BATERIA  */
-  YYSYMBOL_FIM_BATERIA = 19,               /* FIM_BATERIA  */
-  YYSYMBOL__BATERIA = 20,                  /* _BATERIA  */
-  YYSYMBOL_INICIO_RECOLHE = 21,            /* INICIO_RECOLHE  */
-  YYSYMBOL_FIM_RECOLHE = 22,               /* FIM_RECOLHE  */
-  YYSYMBOL__RECOLHE = 23,                  /* _RECOLHE  */
-  YYSYMBOL_INICIO_ENTREGA = 24,            /* INICIO_ENTREGA  */
-  YYSYMBOL_FIM_ENTREGA = 25,               /* FIM_ENTREGA  */
-  YYSYMBOL__ENTREGA = 26,                  /* _ENTREGA  */
-  YYSYMBOL_INICIO_ESTADO = 27,             /* INICIO_ESTADO  */
-  YYSYMBOL_FIM_ESTADO = 28,                /* FIM_ESTADO  */
-  YYSYMBOL__ESTADO = 29,                   /* _ESTADO  */
-  YYSYMBOL_INICIO_INIT_ESTADO = 30,        /* INICIO_INIT_ESTADO  */
-  YYSYMBOL_FIM_INIT_ESTADO = 31,           /* FIM_INIT_ESTADO  */
-  YYSYMBOL__INIT_ESTADO = 32,              /* _INIT_ESTADO  */
-  YYSYMBOL_NUMERO = 33,                    /* NUMERO  */
-  YYSYMBOL_STRING = 34,                    /* STRING  */
-  YYSYMBOL_35_ = 35,                       /* '('  */
-  YYSYMBOL_36_ = 36,                       /* ')'  */
-  YYSYMBOL_37_ = 37,                       /* ','  */
-  YYSYMBOL_YYACCEPT = 38,                  /* $accept  */
-  YYSYMBOL_principal = 39,                 /* principal  */
-  YYSYMBOL_instrucoes = 40                 /* instrucoes  */
+  YYSYMBOL_INICIO = 3,                     /* INICIO  */
+  YYSYMBOL_FIM = 4,                        /* FIM  */
+  YYSYMBOL__MANUTENCAO = 5,                /* _MANUTENCAO  */
+  YYSYMBOL__BATERIA = 6,                   /* _BATERIA  */
+  YYSYMBOL__RECOLHE = 7,                   /* _RECOLHE  */
+  YYSYMBOL__ENTREGA = 8,                   /* _ENTREGA  */
+  YYSYMBOL__ESTADO = 9,                    /* _ESTADO  */
+  YYSYMBOL__INIT_ESTADO = 10,              /* _INIT_ESTADO  */
+  YYSYMBOL_11_ = 11,                       /* '{'  */
+  YYSYMBOL_12_ = 12,                       /* '}'  */
+  YYSYMBOL_13_ = 13,                       /* ';'  */
+  YYSYMBOL_YYACCEPT = 14,                  /* $accept  */
+  YYSYMBOL_begin = 15,                     /* begin  */
+  YYSYMBOL_comandos = 16,                  /* comandos  */
+  YYSYMBOL_comando = 17                    /* comando  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -475,21 +461,21 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  5
+#define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   43
+#define YYLAST   11
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  38
+#define YYNTOKENS  14
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  3
+#define YYNNTS  4
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  9
+#define YYNRULES  6
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  47
+#define YYNSTATES  14
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   289
+#define YYMAXUTOK   265
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -507,15 +493,15 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      35,    36,     2,     2,    37,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,    13,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,    11,     2,    12,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -529,16 +515,14 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31,    32,    33,    34
+       5,     6,     7,     8,     9,    10
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    39,    39,    40,    44,    87,   120,   121,   122,   123
+       0,    38,    38,    40,    49,    50,    53
 };
 #endif
 
@@ -554,16 +538,10 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "\"end of file\"", "error", "\"invalid token\"",
-  "INICIO_DAS_INSTRUCOES", "FINAL_DAS_INSTRUCOES", "PONTO_VIRGULA",
-  "INICIO_FIM_INSTRUCOES", "INICIO_INSTRUCOES", "OPCIONAL", "MANUTENCAO",
-  "CARREGA_BATERIA", "ENTREGA", "RECOLHE", "ESTADO", "INIT_ESTADO",
-  "INICIO_MANUTENCAO", "FIM_MANUTENCAO", "_MANUTENCAO", "INICIO_BATERIA",
-  "FIM_BATERIA", "_BATERIA", "INICIO_RECOLHE", "FIM_RECOLHE", "_RECOLHE",
-  "INICIO_ENTREGA", "FIM_ENTREGA", "_ENTREGA", "INICIO_ESTADO",
-  "FIM_ESTADO", "_ESTADO", "INICIO_INIT_ESTADO", "FIM_INIT_ESTADO",
-  "_INIT_ESTADO", "NUMERO", "STRING", "'('", "')'", "','", "$accept",
-  "principal", "instrucoes", YY_NULLPTR
+  "\"end of file\"", "error", "\"invalid token\"", "INICIO", "FIM",
+  "_MANUTENCAO", "_BATERIA", "_RECOLHE", "_ENTREGA", "_ESTADO",
+  "_INIT_ESTADO", "'{'", "'}'", "';'", "$accept", "begin", "comandos",
+  "comando", YY_NULLPTR
 };
 
 static const char *
@@ -573,7 +551,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-25)
+#define YYPACT_NINF (-12)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -587,11 +565,8 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       5,     0,     9,    -9,     4,   -25,   -24,   -23,   -22,   -21,
-     -20,   -19,    13,    -9,   -15,   -14,   -13,   -12,   -11,   -10,
-     -25,    16,    -8,    -7,    -6,    -5,    -4,    -3,   -25,    20,
-      21,    22,    28,    30,     3,   -25,   -25,   -25,   -25,   -25,
-       1,     6,     2,     8,     7,    32,   -25
+       0,    -7,     5,    -5,   -12,   -12,     2,   -11,   -12,   -12,
+       4,     6,   -12,   -12
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -599,23 +574,20 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,     0,     0,     0,     1,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       2,     0,     0,     0,     0,     0,     0,     0,     3,     0,
-       0,     0,     0,     0,     0,     4,     5,     7,     6,     8,
-       0,     0,     0,     0,     0,     0,     9
+       0,     0,     0,     0,     1,     6,     0,     0,     5,     2,
+       0,     0,     3,     4
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -25,   -25,    29
+     -12,   -12,   -12,    -2
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     2,    12
+       0,     2,     7,     8
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -623,43 +595,34 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       6,     7,     8,     9,    10,    11,     3,     4,     1,     5,
-      13,    14,    15,    16,    17,    18,    19,    20,    22,    23,
-      28,    24,    25,    26,    27,    35,    36,    37,    29,    30,
-      31,    32,    33,    38,    34,    39,    40,    46,    41,    43,
-      42,    44,    21,    45
+       5,    10,    11,     1,     3,     4,     9,     6,    12,    13,
+       0,     5
 };
 
 static const yytype_int8 yycheck[] =
 {
-       9,    10,    11,    12,    13,    14,     6,     7,     3,     0,
-       6,    35,    35,    35,    35,    35,    35,     4,    33,    33,
-       4,    34,    34,    34,    34,     5,     5,     5,    36,    36,
-      36,    36,    36,     5,    37,     5,    33,     5,    37,    37,
-      34,    33,    13,    36
+       5,    12,    13,     3,    11,     0,     4,    12,     4,    11,
+      -1,     5
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,    39,     6,     7,     0,     9,    10,    11,    12,
-      13,    14,    40,     6,    35,    35,    35,    35,    35,    35,
-       4,    40,    33,    33,    34,    34,    34,    34,     4,    36,
-      36,    36,    36,    36,    37,     5,     5,     5,     5,     5,
-      33,    37,    34,    37,    33,    36,     5
+       0,     3,    15,    11,     0,     5,    12,    16,    17,     4,
+      12,    13,     4,    17
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    38,    39,    39,    40,    40,    40,    40,    40,    40
+       0,    14,    15,    15,    16,    16,    17
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     4,     5,     5,     5,     5,     5,     5,    11
+       0,     2,     4,     5,     3,     1,     1
 };
 
 
@@ -1122,129 +1085,22 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 2: /* principal: INICIO_DAS_INSTRUCOES INICIO_FIM_INSTRUCOES instrucoes FINAL_DAS_INSTRUCOES  */
-#line 39 "trabalho3.y"
-                                                                                 { printf("Análise concluída com sucesso.\n"); }
-#line 1129 "trabalho3.tab.c"
-    break;
-
-  case 3: /* principal: INICIO_DAS_INSTRUCOES INICIO_INSTRUCOES INICIO_FIM_INSTRUCOES instrucoes FINAL_DAS_INSTRUCOES  */
+  case 3: /* begin: INICIO '{' comandos '}' FIM  */
 #line 40 "trabalho3.y"
-                                                                                                    { printf("Análise concluída com sucesso.\n"); }
-#line 1135 "trabalho3.tab.c"
+                                   {printf("entrou aqui");}
+#line 1092 "trabalho3.tab.c"
     break;
 
-  case 4: /* instrucoes: MANUTENCAO '(' NUMERO ')' PONTO_VIRGULA  */
-#line 44 "trabalho3.y"
-                                            { 
-
-                            if (posicao != "Posto de Manutencao"){
-                                perc_bateria= perc_bateria - (100*0.1) - (total_quantidade*0.01);
-                            }
-                            
-
-                            if (manutencao==0){
-                                posicao="Posto de Manutencao";
-                                num_manutencao = num_manutencao + 1;
-                                manutencao=2;
-                            }
-                            else if (manutencao==1){
-                                if (tarefas==0){
-                                    posicao="Posto de Manutencao";
-                                    num_manutencao = num_manutencao + 1;
-                                    manutencao=2;
-                                }
-                                else{
-                                    printf("\nPor favor termine a tarefa pendente antes de realizar manutencao!");
-                                }
-
-                            }
-
-                            if (num_manutencao >= 3) {
-                                if (num_manutencao==3){
-                                    printf("\nAtencao! O veículo foi chamado a manutencao 3 vezes");
-                                }
-                                
-                                else if ((num_manutencao % 3) == 0) {
-                                    printf("\nAtencao! O veiculo foi chamado a manutencao %d vezes", num_manutencao);
-                                }
-                            }
-
-                            printf("\n----------------------------------");
-                            printf("\nEstado da Bateria: %f ", perc_bateria);
-                            printf("\nLocalização: %s", posicao);
-                            printf("\nMateriais: %s", material_carro);
-                            printf("\nQuantidade: %d", total_quantidade);
-                            printf("\nVezes que foi a manutencao: %d", num_manutencao);
-                            printf("\n----------------------------------\n\n");
-                                            }
-#line 1182 "trabalho3.tab.c"
-    break;
-
-  case 5: /* instrucoes: CARREGA_BATERIA '(' NUMERO ')' PONTO_VIRGULA  */
-#line 87 "trabalho3.y"
-                                                   {  
-
-                            if (perc_bateria == 100) {
-                                printf("\nA bateria está completamente carregada, não é necessário um novo carregamento");
-                            }
-
-                            if (posicao != "Posto de Carregamento"){
-                                perc_bateria= perc_bateria - (100*0.1) - (total_quantidade*0.01);
-                            }
-
-                            if (estado_bateria==0){
-                                posicao="Posto de Carregamento";
-                                perc_bateria=100;
-                                estado_bateria=2;
-                                
-                            }
-                            else if (estado_bateria==1){
-                                if (tarefas==0){
-                                    posicao="Posto de Carregamento";
-                                    perc_bateria=100;
-                                    estado_bateria=2;
-                                }
-
-                            }
-                            printf("\n----------------------------------");
-                            printf("\nEstado da Bateria: %f ", perc_bateria);
-                            printf("\nLocalização: %s", posicao);
-                            printf("\nMateriais: %s", material_carro);
-                            printf("\nQuantidade: %d", total_quantidade);
-                            printf("\nVezes que foi a manutencao: %d", num_manutencao);
-                            printf("\n----------------------------------\n\n");
-
-                                                }
-#line 1220 "trabalho3.tab.c"
-    break;
-
-  case 6: /* instrucoes: RECOLHE '(' STRING ')' PONTO_VIRGULA  */
-#line 120 "trabalho3.y"
-                                           { printf("RECOLHE: %s\n", (yyvsp[-2].string)); }
-#line 1226 "trabalho3.tab.c"
-    break;
-
-  case 7: /* instrucoes: ENTREGA '(' STRING ')' PONTO_VIRGULA  */
-#line 121 "trabalho3.y"
-                                           { printf("ENTREGA: %s\n", (yyvsp[-2].string)); }
-#line 1232 "trabalho3.tab.c"
-    break;
-
-  case 8: /* instrucoes: ESTADO '(' STRING ')' PONTO_VIRGULA  */
-#line 122 "trabalho3.y"
-                                          { printf("ESTADO: %s\n", (yyvsp[-2].string)); }
-#line 1238 "trabalho3.tab.c"
-    break;
-
-  case 9: /* instrucoes: INIT_ESTADO '(' STRING ',' NUMERO ',' STRING ',' NUMERO ')' PONTO_VIRGULA  */
-#line 123 "trabalho3.y"
-                                                                                { printf("INIT-ESTADO: Localizacao=%s, Bateria=%d, Materiais=%s, NumManutencao=%d\n", (yyvsp[-8].string), (yyvsp[-6].inteiro), (yyvsp[-4].string), (yyvsp[-2].inteiro)); }
-#line 1244 "trabalho3.tab.c"
+  case 6: /* comando: _MANUTENCAO  */
+#line 53 "trabalho3.y"
+                     {
+            printf("\nFoi à manutencao");
+        }
+#line 1100 "trabalho3.tab.c"
     break;
 
 
-#line 1248 "trabalho3.tab.c"
+#line 1104 "trabalho3.tab.c"
 
       default: break;
     }
@@ -1437,7 +1293,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 128 "trabalho3.y"
+#line 61 "trabalho3.y"
 
 
 int yyerror(const char* s) {
