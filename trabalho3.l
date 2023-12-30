@@ -33,7 +33,7 @@ FINAL_DAS_INSTRUCOES FIM
 {FINAL_DAS_INSTRUCOES}         return FIM;
 
 {INIT_ESTADO}\( {BEGIN(ER_INIT_ESTADO);}
-<ER_INIT_ESTADO>([A-Za-z]+,[0-9]+,\([A-Za-z0-9]{5},[1-9][0-9]*\),[0-9]+) {          entrada = yytext;
+<ER_INIT_ESTADO>([A-Za-z]+,[0-9]+,\([A-Za-z0-9]{5},[0-9]+\),[0-9]+) {          entrada = yytext;
 
                                                                                     const int max_parts = 5;
 

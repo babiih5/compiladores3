@@ -38,6 +38,7 @@ comandos: comandos ';' comando
         ;
 
 comando: _INIT_ESTADO{
+   
             if(strcmp(posicao, "manutencao")){
                 posicao="Posto de Manutencao";
             }

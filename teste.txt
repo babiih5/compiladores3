@@ -1,5 +1,10 @@
 INICIO_DAS_INSTRUCOES {
 
-    INIT_ESTADO(manutencao,67,(A4gt6,30),2)
+    INIT_ESTADO(manutencao,70,(Vazio,1),0);
+    RECOLHE([(A4gt6,40)]);
+    ENTREGA(LM035,A4gt6,20);
+    ENTREGA(RV002,A4gt6,20);
+    RECOLHE([(12dF3,10)]);
+    ENTREGA(IU100,12dF3,10)
     
 } FINAL_DAS_INSTRUCOES

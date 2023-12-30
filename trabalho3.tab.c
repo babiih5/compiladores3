@@ -513,8 +513,8 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    29,    29,    30,    36,    37,    40,    44,    89,   123,
-     206,   304
+       0,    29,    29,    30,    36,    37,    40,    69,   114,   148,
+     231,   329
 };
 #endif
 
@@ -1090,13 +1090,38 @@ yyreduce:
   case 6: /* comando: _INIT_ESTADO  */
 #line 40 "trabalho3.y"
                      {
-            printf("A editar estado");
+   
+            if(strcmp(posicao, "manutencao")){
+                posicao="Posto de Manutencao";
+            }
+            else if(strcmp(posicao,"carregamento")){
+                posicao="Posto de Carregamento";
+            }
+            else if(strcmp(posicao,"armazem")){
+                posicao="Armazem";
+            }
+            else if(strcmp(posicao,"fabrica")){
+                posicao="Linhas de Montagem";
+            }
+            else{
+                printf("Posicao inválida!");
+                return 0;
+            }
+
+            printf("---- NOVO ESTADO INICIAL ----");
+            printf("\n----------------------------------");
+                    printf("\nEstado da Bateria: %.2f ", perc_bateria);
+                    printf("\nLocalização: %s", posicao);
+                    printf("\nMateriais: %s", material_carro);
+                    printf("\nQuantidade: %d", total_quantidade);
+                    printf("\nVezes que foi a manutencao: %d", num_manutencao);
+                    printf("\n----------------------------------\n\n");
         }
-#line 1096 "trabalho3.tab.c"
+#line 1121 "trabalho3.tab.c"
     break;
 
   case 7: /* comando: _MANUTENCAO  */
-#line 44 "trabalho3.y"
+#line 69 "trabalho3.y"
                      {
             printf("---- REALIZAR MANUTENCAO ----");
             if (strcmp(posicao, "Posto de Manutencao") != 0){
@@ -1133,7 +1158,7 @@ yyreduce:
                             }
 
                             printf("\n----------------------------------");
-                            printf("\nEstado da Bateria: %f ", perc_bateria);
+                            printf("\nEstado da Bateria: %.2f ", perc_bateria);
                             printf("\nLocalização: %s", posicao);
                             printf("\nMateriais: %s", material_carro);
                             printf("\nQuantidade: %d", total_quantidade);
@@ -1141,18 +1166,18 @@ yyreduce:
                             printf("\n----------------------------------\n\n");
 
         }
-#line 1145 "trabalho3.tab.c"
+#line 1170 "trabalho3.tab.c"
     break;
 
   case 8: /* comando: _BATERIA  */
-#line 89 "trabalho3.y"
+#line 114 "trabalho3.y"
                   {
             printf("---- CARREGAMENTO DE BATERIA ----");
             if (perc_bateria == 100) {
                                 printf("\nA bateria está completamente carregada, não é necessário um novo carregamento");
                             }
 
-                            if (strcmp(posicao, "Posto de Manutencao")){
+                            if (strcmp(posicao, "Posto de Carregamento") != 0){
                                 perc_bateria= perc_bateria - (100*0.1) - (total_quantidade*0.01);
                             }
 
@@ -1171,7 +1196,7 @@ yyreduce:
 
                             }
                             printf("\n----------------------------------");
-                            printf("\nEstado da Bateria: %f ", perc_bateria);
+                            printf("\nEstado da Bateria: %.2f ", perc_bateria);
                             printf("\nLocalização: %s", posicao);
                             printf("\nMateriais: %s", material_carro);
                             printf("\nQuantidade: %d", total_quantidade);
@@ -1179,11 +1204,11 @@ yyreduce:
                             printf("\n----------------------------------\n\n");
 
         }
-#line 1183 "trabalho3.tab.c"
+#line 1208 "trabalho3.tab.c"
     break;
 
   case 9: /* comando: _RECOLHE  */
-#line 123 "trabalho3.y"
+#line 148 "trabalho3.y"
                  {
             printf("---- RECOLHA ----");
             if (total_quantidade + quantidade > 80) {
@@ -1257,7 +1282,7 @@ yyreduce:
             }
 
             printf("\n----------------------------------");
-            printf("\nEstado da Bateria: %f ", perc_bateria);
+            printf("\nEstado da Bateria: %.2f ", perc_bateria);
             printf("\nLocalização: %s", posicao);
             printf("\nMateriais: %s", material_carro);
             printf("\nQuantidade: %d", total_quantidade);
@@ -1265,11 +1290,11 @@ yyreduce:
             printf("\n----------------------------------\n\n");
 
         }
-#line 1269 "trabalho3.tab.c"
+#line 1294 "trabalho3.tab.c"
     break;
 
   case 10: /* comando: _ENTREGA  */
-#line 206 "trabalho3.y"
+#line 231 "trabalho3.y"
                  {
             printf("---- ENTREGA ----");
             if (total_quantidade < quantidade) {
@@ -1357,7 +1382,7 @@ yyreduce:
                 }
                                                                                         
                 printf("\n----------------------------------");
-                printf("\nEstado da Bateria: %f ", perc_bateria);
+                printf("\nEstado da Bateria: %.2f ", perc_bateria);
                 printf("\nLocalização: %s", posicao);
                 printf("\nMateriais: %s", material_carro);
                 printf("\nQuantidade: %d", total_quantidade);
@@ -1367,15 +1392,15 @@ yyreduce:
 
                 }
         }
-#line 1371 "trabalho3.tab.c"
+#line 1396 "trabalho3.tab.c"
     break;
 
   case 11: /* comando: _ESTADO  */
-#line 304 "trabalho3.y"
+#line 329 "trabalho3.y"
                 {
             printf("---- ESTADO ----");
             if (strcmp(aux_estado, "B") == 0){
-                printf("\nBateria: %d", estado_bateria);
+                printf("\nBateria: %.2f", perc_bateria);
             }
             else if (strcmp(aux_estado, "T") == 0){
                 printf("\nTarefas pendentes: %d", tarefas);
@@ -1386,11 +1411,11 @@ yyreduce:
 
             }
         }
-#line 1390 "trabalho3.tab.c"
+#line 1415 "trabalho3.tab.c"
     break;
 
 
-#line 1394 "trabalho3.tab.c"
+#line 1419 "trabalho3.tab.c"
 
       default: break;
     }
@@ -1583,7 +1608,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 320 "trabalho3.y"
+#line 345 "trabalho3.y"
 
 
 int yyerror(const char* s) {
@@ -1598,7 +1623,7 @@ int main(void) {
 
     printf("\n----------------------------------\n");
      printf("ESTADO FINAL DO VEICULO\n");
-     printf("Estado da Bateria: %f \n", perc_bateria);
+     printf("Estado da Bateria: %.2f \n", perc_bateria);
      printf("Localização: %s \n", posicao);
      printf("Materiais: %s \n", material_carro);
      printf("Quantidade: %d \n", total_quantidade);
