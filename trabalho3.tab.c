@@ -79,17 +79,9 @@
     int yyerror(const char* s);
     extern int yylex(void);
 
-    void mostrar_estado() {
-    printf("\n----------------------------------");
-    printf("\nEstado da Bateria: %f ", perc_bateria);
-    printf("\nLocalização: %s", posicao);
-    printf("\nMateriais: %s", material_carro);
-    printf("\nQuantidade: %d", total_quantidade);
-    printf("\nVezes que foi a manutenção: %d", num_manutencao);
-    printf("\n----------------------------------\n\n");
-}
+   
 
-#line 93 "trabalho3.tab.c"
+#line 85 "trabalho3.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -462,16 +454,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   11
+#define YYLAST   20
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  14
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  4
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  6
+#define YYNRULES  11
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  14
+#define YYNSTATES  19
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   265
@@ -519,9 +511,10 @@ static const yytype_int8 yytranslate[] =
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_int8 yyrline[] =
+static const yytype_int16 yyrline[] =
 {
-       0,    37,    37,    39,    48,    49,    52
+       0,    29,    29,    30,    36,    37,    40,    44,    89,   123,
+     206,   304
 };
 #endif
 
@@ -550,7 +543,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-12)
+#define YYPACT_NINF (-11)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -564,8 +557,8 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       0,    -7,     5,    -5,   -12,   -12,     2,   -11,   -12,   -12,
-       4,     6,   -12,   -12
+      13,     6,    18,    -5,   -11,   -11,   -11,   -11,   -11,   -11,
+     -11,    15,     2,   -11,   -11,    16,     3,   -11,   -11
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -573,20 +566,20 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,     0,     0,     1,     6,     0,     0,     5,     2,
-       0,     0,     3,     4
+       0,     0,     0,     0,     1,     7,     8,     9,    10,    11,
+       6,     0,     0,     5,     2,     0,     0,     3,     4
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -12,   -12,   -12,    -2
+     -11,   -11,   -11,   -10
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     2,     7,     8
+       0,     2,    12,    13
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -594,34 +587,38 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       5,    10,    11,     1,     3,     4,     9,     6,    12,    13,
-       0,     5
+       5,     6,     7,     8,     9,    10,    18,    11,     5,     6,
+       7,     8,     9,    10,    15,    16,     1,     3,     4,    14,
+      17
 };
 
 static const yytype_int8 yycheck[] =
 {
-       5,    12,    13,     3,    11,     0,     4,    12,     4,    11,
-      -1,     5
+       5,     6,     7,     8,     9,    10,    16,    12,     5,     6,
+       7,     8,     9,    10,    12,    13,     3,    11,     0,     4,
+       4
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,    15,    11,     0,     5,    12,    16,    17,     4,
-      12,    13,     4,    17
+       0,     3,    15,    11,     0,     5,     6,     7,     8,     9,
+      10,    12,    16,    17,     4,    12,    13,     4,    17
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    14,    15,    15,    16,    16,    17
+       0,    14,    15,    15,    16,    16,    17,    17,    17,    17,
+      17,    17
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     4,     5,     3,     1,     1
+       0,     2,     4,     5,     3,     1,     1,     1,     1,     1,
+       1,     1
 };
 
 
@@ -1085,21 +1082,315 @@ yyreduce:
   switch (yyn)
     {
   case 3: /* begin: INICIO '{' comandos '}' FIM  */
-#line 39 "trabalho3.y"
+#line 30 "trabalho3.y"
                                    {printf("entrou aqui");}
-#line 1091 "trabalho3.tab.c"
+#line 1088 "trabalho3.tab.c"
     break;
 
-  case 6: /* comando: _MANUTENCAO  */
-#line 52 "trabalho3.y"
+  case 6: /* comando: _INIT_ESTADO  */
+#line 40 "trabalho3.y"
                      {
-            printf("\nFoi à manutencao");
+            printf("A editar estado");
         }
-#line 1099 "trabalho3.tab.c"
+#line 1096 "trabalho3.tab.c"
+    break;
+
+  case 7: /* comando: _MANUTENCAO  */
+#line 44 "trabalho3.y"
+                     {
+            printf("---- REALIZAR MANUTENCAO ----");
+            if (strcmp(posicao, "Posto de Manutencao") != 0){
+                                perc_bateria= perc_bateria - (100*0.1) - (total_quantidade*0.01);
+                               
+                            }
+                            
+
+                            if (manutencao==0){
+                                posicao="Posto de Manutencao";
+                                num_manutencao = num_manutencao + 1;
+                                manutencao=2;
+                            }
+                            else if (manutencao==1){
+                                if (tarefas==0){
+                                    posicao="Posto de Manutencao";
+                                    num_manutencao = num_manutencao + 1;
+                                    manutencao=2;
+                                }
+                                else{
+                                    printf("\nPor favor termine a tarefa pendente antes de realizar manutencao!");
+                                }
+
+                            }
+
+                            if (num_manutencao >= 3) {
+                                if (num_manutencao==3){
+                                    printf("\nAtencao! O veículo foi chamado a manutencao 3 vezes");
+                                }
+                                
+                                else if ((num_manutencao % 3) == 0) {
+                                    printf("\nAtencao! O veiculo foi chamado a manutencao %d vezes", num_manutencao);
+                                }
+                            }
+
+                            printf("\n----------------------------------");
+                            printf("\nEstado da Bateria: %f ", perc_bateria);
+                            printf("\nLocalização: %s", posicao);
+                            printf("\nMateriais: %s", material_carro);
+                            printf("\nQuantidade: %d", total_quantidade);
+                            printf("\nVezes que foi a manutencao: %d", num_manutencao);
+                            printf("\n----------------------------------\n\n");
+
+        }
+#line 1145 "trabalho3.tab.c"
+    break;
+
+  case 8: /* comando: _BATERIA  */
+#line 89 "trabalho3.y"
+                  {
+            printf("---- CARREGAMENTO DE BATERIA ----");
+            if (perc_bateria == 100) {
+                                printf("\nA bateria está completamente carregada, não é necessário um novo carregamento");
+                            }
+
+                            if (strcmp(posicao, "Posto de Manutencao")){
+                                perc_bateria= perc_bateria - (100*0.1) - (total_quantidade*0.01);
+                            }
+
+                            if (estado_bateria==0){
+                                posicao="Posto de Carregamento";
+                                perc_bateria=100;
+                                estado_bateria=2;
+                                
+                            }
+                            else if (estado_bateria==1){
+                                if (tarefas==0){
+                                    posicao="Posto de Carregamento";
+                                    perc_bateria=100;
+                                    estado_bateria=2;
+                                }
+
+                            }
+                            printf("\n----------------------------------");
+                            printf("\nEstado da Bateria: %f ", perc_bateria);
+                            printf("\nLocalização: %s", posicao);
+                            printf("\nMateriais: %s", material_carro);
+                            printf("\nQuantidade: %d", total_quantidade);
+                            printf("\nVezes que foi a manutencao: %d", num_manutencao);
+                            printf("\n----------------------------------\n\n");
+
+        }
+#line 1183 "trabalho3.tab.c"
+    break;
+
+  case 9: /* comando: _RECOLHE  */
+#line 123 "trabalho3.y"
+                 {
+            printf("---- RECOLHA ----");
+            if (total_quantidade + quantidade > 80) {
+                printf("\nAtencao! Excedeu a capacidade do veiculo, impossivel realizar o transporte");
+            } 
+            else{
+                if (posicao != "Armazem"){
+                bateria_necessaria= (100*0.1) + (aux_quant*0.01);
+                }
+                else{
+                    bateria_necessaria=0;
+                }
+
+                if(manutencao==0){
+                    printf("\nManutencao muito baixa! Por favor, realizar manutencao antes de avancar!\n");
+                }
+                if(perc_bateria!=0 && manutencao!=0){
+                    if (perc_bateria >= 10.8 && perc_bateria <= 21.6){
+                        estado_bateria=0;
+                    }
+                    else if(perc_bateria > 21.6 && perc_bateria <= 32.4){
+                        estado_bateria=1;
+                    }
+                    else if(perc_bateria > 32.4){
+                        estado_bateria=2;
+                    }
+
+                }
+
+                if (estado_bateria==0){
+                    printf("\nAtencao! Bateria insuficiente, por favor enviar para o posto de carregamento!");
+                }
+                else if(estado_bateria>0 && manutencao>0){
+                    if (estado_bateria==1){
+                        printf("\nNo final desta acao, a bateria sera insuficiente. Por favor, enviar para o posto de carregamento");
+                    }
+                    if(manutencao==1){
+                        printf("\nNo final desta acao, a manutencao sera muito baixa. Por favor, enviar para o posto de manutencao\n");
+                        manutencao=0;
+                    }
+
+                    material_recolha = aux_material;
+                    material_recolha++;
+                    material_recolha++;
+
+                    printf("\nMaterial: %s",material_recolha);
+                    printf("\nQuantidade: %d", quantidade);
+
+                    if (posicao != "Armazem"){
+                        perc_bateria= perc_bateria - (100*0.1) - (total_quantidade*0,01);
+                    }
+                    
+                    posicao = "Armazem";
+
+                    if(tarefas>0){
+                        total_quantidade = total_quantidade + quantidade;
+                        material_carro = strdup(material_recolha);
+
+                    }
+                    else if (tarefas == 0) {
+                        total_quantidade = quantidade;
+                        tarefas = tarefas + 1;
+                        material_carro = strdup(material_recolha);
+
+                    }
+                    
+        
+
+                }
+
+            }
+
+            printf("\n----------------------------------");
+            printf("\nEstado da Bateria: %f ", perc_bateria);
+            printf("\nLocalização: %s", posicao);
+            printf("\nMateriais: %s", material_carro);
+            printf("\nQuantidade: %d", total_quantidade);
+            printf("\nVezes que foi a manutencao: %d", num_manutencao);
+            printf("\n----------------------------------\n\n");
+
+        }
+#line 1269 "trabalho3.tab.c"
+    break;
+
+  case 10: /* comando: _ENTREGA  */
+#line 206 "trabalho3.y"
+                 {
+            printf("---- ENTREGA ----");
+            if (total_quantidade < quantidade) {
+                printf("\nAtencao! Esta quantidade de material nao esta a ser transportada, impossivel realizar a entrega!");
+                }
+                else if (strcmp(material_carro, material_entrega) != 0) {
+                    printf("\nAtencao! Este tipo de material nao esta a ser transportado, impossivel realizar a entrega!");
+                }
+                else{
+                    if(manutencao==0){
+                        printf("\nManutencao muito baixa! Por favor, realizar manutencao antes de avancar!\n");
+                    }
+
+                    if(perc_bateria!=0 && manutencao!=0){
+                        if (posicao != "Linhas de Montagem"){
+                        bateria_necessaria= (100*0.1) + (aux_quant*0.01);
+
+
+                            if (perc_bateria >= 10.8 && perc_bateria <= 21.6){
+                                estado_bateria=0;
+                            }
+                            else if(perc_bateria > 21.6 && perc_bateria <= 32.4){
+                                estado_bateria=1;
+                            }
+                            else if(perc_bateria > 32.4){
+                                estado_bateria=2;
+                            }
+                        }
+
+                        else{
+                            bateria_necessaria=(100*0.05)+(total_quantidade*0.01);
+
+                            if (perc_bateria >= 10.8 && perc_bateria <= 16.6){
+                                estado_bateria=0;
+                            }
+                            else if(perc_bateria > 16.6 && perc_bateria <= 22.4){
+                                estado_bateria=1;
+                            }
+                            else if(perc_bateria > 22.4){
+                                estado_bateria=2;
+                            }
+
+                        }
+                }
+
+                if (estado_bateria==0){
+                    printf("\nAtencao! Bateria insuficiente, por favor enviar para o posto de carregamento!");
+                }
+                else if(estado_bateria==1 || estado_bateria==2){
+
+                    if (estado_bateria==1){
+                        printf("\nNo final desta acao, a bateria será insuficiente. Por favor, enviar para o posto de carregamento");
+                    }
+                    if(manutencao==1){
+                        printf("\nNo final desta acao, a manutencao sera muito baixa. Por favor, enviar para o posto de manutencao\n");
+                        manutencao=0;
+                    }
+
+                    total_quantidade = total_quantidade - quantidade;
+
+                    if (posicao != "Linhas de Montagem"){
+                        perc_bateria= perc_bateria - (100*0.1) - (total_quantidade*0.01);
+                    }
+                    else{
+                        perc_bateria= perc_bateria - (100*0.05)-(total_quantidade*0.01);
+                    }
+
+
+                    printf("\nLinha de montagem: %s",linha);
+                    printf("\nMaterial: %s",material_entrega);
+                    printf("\nQuantidade: %d", quantidade);
+
+                    posicao = "Linhas de Montagem";
+
+                    if (total_quantidade == 0){
+                        material_carro = "";
+                        tarefas = tarefas - 1;
+                    }
+                    else {
+                        material_carro = "";
+                        material_carro = material_entrega;
+                        }
+
+                    
+                }
+                                                                                        
+                printf("\n----------------------------------");
+                printf("\nEstado da Bateria: %f ", perc_bateria);
+                printf("\nLocalização: %s", posicao);
+                printf("\nMateriais: %s", material_carro);
+                printf("\nQuantidade: %d", total_quantidade);
+                printf("\nVezes que foi a manutencao: %d", num_manutencao);
+                printf("\n----------------------------------\n\n");
+
+
+                }
+        }
+#line 1371 "trabalho3.tab.c"
+    break;
+
+  case 11: /* comando: _ESTADO  */
+#line 304 "trabalho3.y"
+                {
+            printf("---- ESTADO ----");
+            if (strcmp(aux_estado, "B") == 0){
+                printf("\nBateria: %d", estado_bateria);
+            }
+            else if (strcmp(aux_estado, "T") == 0){
+                printf("\nTarefas pendentes: %d", tarefas);
+            }
+            else if (strcmp(aux_estado, "M") == 0){
+                printf("\nMateriais: %s",material_carro);
+                printf("\nQuantidade: %d", total_quantidade);
+
+            }
+        }
+#line 1390 "trabalho3.tab.c"
     break;
 
 
-#line 1103 "trabalho3.tab.c"
+#line 1394 "trabalho3.tab.c"
 
       default: break;
     }
@@ -1292,7 +1583,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 60 "trabalho3.y"
+#line 320 "trabalho3.y"
 
 
 int yyerror(const char* s) {
@@ -1304,5 +1595,15 @@ int yylex(void);
 
 int main(void) {
     yyparse();
+
+    printf("\n----------------------------------\n");
+     printf("ESTADO FINAL DO VEICULO\n");
+     printf("Estado da Bateria: %f \n", perc_bateria);
+     printf("Localização: %s \n", posicao);
+     printf("Materiais: %s \n", material_carro);
+     printf("Quantidade: %d \n", total_quantidade);
+     printf("Vezes que foi a manutencao: %d \n", num_manutencao);
+     printf("----------------------------------\n\n");
+
     return 0;
 }

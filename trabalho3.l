@@ -7,6 +7,7 @@
     #include "trabalho3.tab.h"
     #include "variaveis.h"
     char *bateria_aux, *quantidade_aux, *manutencao_aux;
+    
     int manutencao=2, estado_bateria=2, quantidade=0, num_manutencao=0, tarefas=0, total_quantidade=0;
     char *instrucao="", *posicao="Posto de Carregamento", *linha="", *quant_str="", *material_entrega="", *material_carro="",*material_recolha="",*aux_material="", *aux_estado="", *total_materiais="";
     float perc_bateria=100.0,aux_quant=0.0,bateria_necessaria=0.0;
@@ -45,10 +46,10 @@ FINAL_DAS_INSTRUCOES FIM
 
 
 {RECOLHE}\( {BEGIN(ER_RECOLHE);}
-<ER_RECOLHE>(\([A-Za-z0-9]{5},[1-9][0-9]*\)(,\([A-Za-z0-9]{5},[1-9][0-9]*\))*) {    aux_material = strtok(yytext, ",");
+<ER_RECOLHE>(\[\([A-Za-z0-9]{5},[1-9][0-9]*\)(,\([A-Za-z0-9]{5},[1-9][0-9]*\))*\]) {    aux_material = strtok(yytext, ",");
                                                                                     quant_str = strtok(NULL, ")");
                                                                                     quantidade=atoi(quant_str);
-                                                                                    aux_quant=total_quantidade; 
+                                                                                    aux_quant=total_quantidade;
                                                                                     return _RECOLHE;
 }
 <ER_RECOLHE>\) {BEGIN 0;}
@@ -65,13 +66,14 @@ FINAL_DAS_INSTRUCOES FIM
 <ER_ENTREGA>\) {BEGIN 0;}
 
 
-{ESTADO}\( BEGIN(ER_ESTADO);
+{ESTADO}\( {BEGIN(ER_ESTADO);}
 <ER_ESTADO>([BTM]|<ER_ESTADO>[BTM],[BTM],[BTM]|<ER_ESTADO>[BTM],[BTM]) { aux_estado = yytext; return _ESTADO;
 }
 <ER_ESTADO>\) {BEGIN 0;}
 
 
-(";"|")"|"{"|"}"|"(")    return yytext[0];
+(";"|"{"|"}"|"(")    return yytext[0];
+")"                  return ')';
 [/t ]	;
 .	;
 %%
