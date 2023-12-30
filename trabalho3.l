@@ -6,7 +6,8 @@
     #include <string.h>
     #include "trabalho3.tab.h"
     #include "variaveis.h"
-    char *bateria_aux, *quantidade_aux, *manutencao_aux;
+    char *mat_aux, *quantidade_aux, *manutencao_aux, *entrada;
+    int comp=0;
     
     int manutencao=2, estado_bateria=2, quantidade=0, num_manutencao=0, tarefas=0, total_quantidade=0;
     char *instrucao="", *posicao="Posto de Carregamento", *linha="", *quant_str="", *material_entrega="", *material_carro="",*material_recolha="",*aux_material="", *aux_estado="", *total_materiais="";
@@ -14,7 +15,7 @@
 
 
 %}
-INIT_ESTADO _INIT_ESTADO
+INIT_ESTADO INIT_ESTADO
 
 MANUTENCAO MANUTEN"Ç"AO
 CARREGA-BATERIA CARREGA"-"BATERIA
@@ -31,7 +32,44 @@ FINAL_DAS_INSTRUCOES FIM
 {INICIO_DAS_INSTRUCOES}       return INICIO;
 {FINAL_DAS_INSTRUCOES}         return FIM;
 
+{INIT_ESTADO}\( {BEGIN(ER_INIT_ESTADO);}
+<ER_INIT_ESTADO>([A-Za-z]+,[0-9]+,\([A-Za-z0-9]{5},[1-9][0-9]*\),[0-9]+) {          entrada = yytext;
 
+                                                                                    const int max_parts = 5;
+
+                                                                                    char *parts[max_parts];
+
+                                                                                    char *token = strtok(entrada, ",");
+
+                                                                                    int i = 0;
+
+                                                                                    while (token != NULL && i < max_parts) {
+                                                                                        parts[i] = token;
+                                                                                        i++;
+
+                                                                                        token = strtok(NULL, ",");
+                                                                                    }
+
+                                                                                    posicao=parts[0];
+
+                                                                                    perc_bateria=(float)atoi(parts[1]);
+
+                                                                                    mat_aux=parts[2];
+                                                                                    mat_aux++;
+                                                                                    material_carro=mat_aux;
+
+                                                                                    quantidade_aux=parts[3];
+                                                                                    comp = strlen(quantidade_aux);
+                                                                                    if (comp > 0) {
+                                                                                        quantidade_aux[comp - 1] = '\0';  
+                                                                                    }
+                                                                                    total_quantidade=atoi(quantidade_aux);
+                                                                                    
+                                                                                    num_manutencao=atoi(parts[4]);
+
+                                                                                    return _INIT_ESTADO;
+                                                                                }
+<ER_INIT_ESTADO>\) {BEGIN 0;}
 
 {MANUTENCAO}\( {BEGIN(ER_MANUTENCAO);}
 <ER_MANUTENCAO>([0-2]) {    manutencao=atoi(yytext); return _MANUTENCAO;
