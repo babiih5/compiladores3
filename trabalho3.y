@@ -38,7 +38,31 @@ comandos: comandos ';' comando
         ;
 
 comando: _INIT_ESTADO{
-            printf("A editar estado");
+            if(strcmp(posicao, "manutencao")){
+                posicao="Posto de Manutencao";
+            }
+            else if(strcmp(posicao,"carregamento")){
+                posicao="Posto de Carregamento";
+            }
+            else if(strcmp(posicao,"armazem")){
+                posicao="Armazem";
+            }
+            else if(strcmp(posicao,"fabrica")){
+                posicao="Linhas de Montagem";
+            }
+            else{
+                printf("Posicao inválida!");
+                return 0;
+            }
+
+            printf("---- NOVO ESTADO INICIAL ----");
+            printf("\n----------------------------------");
+                    printf("\nEstado da Bateria: %.2f ", perc_bateria);
+                    printf("\nLocalização: %s", posicao);
+                    printf("\nMateriais: %s", material_carro);
+                    printf("\nQuantidade: %d", total_quantidade);
+                    printf("\nVezes que foi a manutencao: %d", num_manutencao);
+                    printf("\n----------------------------------\n\n");
         };
 
         |_MANUTENCAO {
@@ -77,7 +101,7 @@ comando: _INIT_ESTADO{
                             }
 
                             printf("\n----------------------------------");
-                            printf("\nEstado da Bateria: %f ", perc_bateria);
+                            printf("\nEstado da Bateria: %.2f ", perc_bateria);
                             printf("\nLocalização: %s", posicao);
                             printf("\nMateriais: %s", material_carro);
                             printf("\nQuantidade: %d", total_quantidade);
@@ -92,7 +116,7 @@ comando: _INIT_ESTADO{
                                 printf("\nA bateria está completamente carregada, não é necessário um novo carregamento");
                             }
 
-                            if (strcmp(posicao, "Posto de Manutencao")){
+                            if (strcmp(posicao, "Posto de Carregamento") != 0){
                                 perc_bateria= perc_bateria - (100*0.1) - (total_quantidade*0.01);
                             }
 
@@ -111,7 +135,7 @@ comando: _INIT_ESTADO{
 
                             }
                             printf("\n----------------------------------");
-                            printf("\nEstado da Bateria: %f ", perc_bateria);
+                            printf("\nEstado da Bateria: %.2f ", perc_bateria);
                             printf("\nLocalização: %s", posicao);
                             printf("\nMateriais: %s", material_carro);
                             printf("\nQuantidade: %d", total_quantidade);
@@ -193,7 +217,7 @@ comando: _INIT_ESTADO{
             }
 
             printf("\n----------------------------------");
-            printf("\nEstado da Bateria: %f ", perc_bateria);
+            printf("\nEstado da Bateria: %.2f ", perc_bateria);
             printf("\nLocalização: %s", posicao);
             printf("\nMateriais: %s", material_carro);
             printf("\nQuantidade: %d", total_quantidade);
@@ -290,7 +314,7 @@ comando: _INIT_ESTADO{
                 }
                                                                                         
                 printf("\n----------------------------------");
-                printf("\nEstado da Bateria: %f ", perc_bateria);
+                printf("\nEstado da Bateria: %.2f ", perc_bateria);
                 printf("\nLocalização: %s", posicao);
                 printf("\nMateriais: %s", material_carro);
                 printf("\nQuantidade: %d", total_quantidade);
@@ -304,7 +328,7 @@ comando: _INIT_ESTADO{
         |_ESTADO{
             printf("---- ESTADO ----");
             if (strcmp(aux_estado, "B") == 0){
-                printf("\nBateria: %d", estado_bateria);
+                printf("\nBateria: %.2f", perc_bateria);
             }
             else if (strcmp(aux_estado, "T") == 0){
                 printf("\nTarefas pendentes: %d", tarefas);
@@ -331,7 +355,7 @@ int main(void) {
 
     printf("\n----------------------------------\n");
      printf("ESTADO FINAL DO VEICULO\n");
-     printf("Estado da Bateria: %f \n", perc_bateria);
+     printf("Estado da Bateria: %.2f \n", perc_bateria);
      printf("Localização: %s \n", posicao);
      printf("Materiais: %s \n", material_carro);
      printf("Quantidade: %d \n", total_quantidade);
