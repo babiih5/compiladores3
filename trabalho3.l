@@ -9,12 +9,15 @@
     char *mat_aux, *quantidade_aux, *manutencao_aux, *entrada;
     int comp=0;
     
+
+    /* Inicialização das variáveis */
     int manutencao=2, estado_bateria=2, quantidade=0, num_manutencao=0, tarefas=0, total_quantidade=0;
     char *instrucao="", *posicao="Posto de Carregamento", *linha="", *quant_str="", *material_entrega="", *material_carro="",*material_recolha="",*aux_material="", *aux_estado="", *total_materiais="";
     float perc_bateria=100.0,aux_quant=0.0,bateria_necessaria=0.0;
 
 
 %}
+
 INIT_ESTADO INIT_ESTADO
 
 MANUTENCAO MANUTEN"Ç"AO
@@ -32,9 +35,10 @@ FINAL_DAS_INSTRUCOES FIM
 {INICIO_DAS_INSTRUCOES}       return INICIO;
 {FINAL_DAS_INSTRUCOES}         return FIM;
 
+
 {INIT_ESTADO}\( {BEGIN(ER_INIT_ESTADO);}
 <ER_INIT_ESTADO>([A-Za-z]+,[0-9]+,\([A-Za-z0-9]{5},[0-9]+\),[0-9]+) {          entrada = yytext;
-
+                                                                                    /* Guardar o valor das variáveis a usar no yacc*/
                                                                                     const int max_parts = 5;
 
                                                                                     char *parts[max_parts];
@@ -84,7 +88,9 @@ FINAL_DAS_INSTRUCOES FIM
 
 
 {RECOLHE}\( {BEGIN(ER_RECOLHE);}
-<ER_RECOLHE>(\[\([A-Za-z0-9]{5},[1-9][0-9]*\)(,\([A-Za-z0-9]{5},[1-9][0-9]*\))*\]) {    aux_material = strtok(yytext, ",");
+<ER_RECOLHE>(\[\([A-Za-z0-9]{5},[1-9][0-9]*\)(,\([A-Za-z0-9]{5},[1-9][0-9]*\))*\]) {    
+                                                                                    /* Guardar o valor das variáveis a usar no yacc*/
+                                                                                    aux_material = strtok(yytext, ",");
                                                                                     quant_str = strtok(NULL, ")");
                                                                                     quantidade=atoi(quant_str);
                                                                                     aux_quant=total_quantidade;
@@ -94,7 +100,8 @@ FINAL_DAS_INSTRUCOES FIM
 
 
 {ENTREGA}\( {BEGIN(ER_ENTREGA);}
-<ER_ENTREGA>([A-Z]{2}(([0-9]){3}|100),[A-Za-z0-9]{5},[1-9][0-9]*) {     linha = strtok(yytext, ",");
+<ER_ENTREGA>([A-Z]{2}(([0-9]){3}|100),[A-Za-z0-9]{5},[1-9][0-9]*) {     /* Guardar o valor das variáveis a usar no yacc*/
+                                                                        linha = strtok(yytext, ",");
                                                                         material_entrega = strtok(NULL, ",");
                                                                         quant_str = strtok(NULL, ")");
                                                                         quantidade=atoi(quant_str);
