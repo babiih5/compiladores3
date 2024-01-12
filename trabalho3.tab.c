@@ -73,7 +73,7 @@
     #include <stdlib.h>
     #include <string.h>
     #include "variaveis.h"
-
+    #define YYDEBUG 1
     
 
     int yyerror(const char* s);
@@ -1619,6 +1619,7 @@ int yyerror(const char* s) {
 int yylex(void);
 
 int main(void) {
+    yydebug=1;
     yyparse();
 
     printf("\n----------------------------------\n");

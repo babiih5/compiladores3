@@ -600,13 +600,15 @@ char *yytext;
     char *mat_aux, *quantidade_aux, *manutencao_aux, *entrada;
     int comp=0;
     
+
+    /* Inicialização das variáveis */
     int manutencao=2, estado_bateria=2, quantidade=0, num_manutencao=0, tarefas=0, total_quantidade=0;
     char *instrucao="", *posicao="Posto de Carregamento", *linha="", *quant_str="", *material_entrega="", *material_carro="",*material_recolha="",*aux_material="", *aux_estado="", *total_materiais="";
     float perc_bateria=100.0,aux_quant=0.0,bateria_necessaria=0.0;
 
 
-#line 609 "lex.yy.c"
-#line 610 "lex.yy.c"
+#line 611 "lex.yy.c"
+#line 612 "lex.yy.c"
 
 #define INITIAL 0
 #define ER_MANUTENCAO 1
@@ -829,10 +831,10 @@ YY_DECL
 		}
 
 	{
-#line 30 "trabalho3.l"
+#line 33 "trabalho3.l"
 
 
-#line 836 "lex.yy.c"
+#line 838 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -891,24 +893,24 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 32 "trabalho3.l"
+#line 35 "trabalho3.l"
 return INICIO;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 33 "trabalho3.l"
+#line 36 "trabalho3.l"
 return FIM;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 35 "trabalho3.l"
+#line 39 "trabalho3.l"
 {BEGIN(ER_INIT_ESTADO);}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 36 "trabalho3.l"
+#line 40 "trabalho3.l"
 {          entrada = yytext;
-
+                                                                                    /* Guardar o valor das variáveis a usar no yacc*/
                                                                                     const int max_parts = 5;
 
                                                                                     char *parts[max_parts];
@@ -946,50 +948,52 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 72 "trabalho3.l"
+#line 76 "trabalho3.l"
 {BEGIN 0;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 74 "trabalho3.l"
+#line 78 "trabalho3.l"
 {BEGIN(ER_MANUTENCAO);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 75 "trabalho3.l"
+#line 79 "trabalho3.l"
 {    manutencao=atoi(yytext); return _MANUTENCAO;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 77 "trabalho3.l"
+#line 81 "trabalho3.l"
 {BEGIN 0;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 80 "trabalho3.l"
+#line 84 "trabalho3.l"
 {BEGIN(ER_BATERIA);}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 81 "trabalho3.l"
+#line 85 "trabalho3.l"
 {       estado_bateria=atoi(yytext); return _BATERIA;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 83 "trabalho3.l"
+#line 87 "trabalho3.l"
 {BEGIN 0;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 86 "trabalho3.l"
+#line 90 "trabalho3.l"
 {BEGIN(ER_RECOLHE);}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 87 "trabalho3.l"
-{    aux_material = strtok(yytext, ",");
+#line 91 "trabalho3.l"
+{    
+                                                                                    /* Guardar o valor das variáveis a usar no yacc*/
+                                                                                    aux_material = strtok(yytext, ",");
                                                                                     quant_str = strtok(NULL, ")");
                                                                                     quantidade=atoi(quant_str);
                                                                                     aux_quant=total_quantidade;
@@ -998,18 +1002,19 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 93 "trabalho3.l"
+#line 99 "trabalho3.l"
 {BEGIN 0;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 96 "trabalho3.l"
+#line 102 "trabalho3.l"
 {BEGIN(ER_ENTREGA);}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 97 "trabalho3.l"
-{     linha = strtok(yytext, ",");
+#line 103 "trabalho3.l"
+{     /* Guardar o valor das variáveis a usar no yacc*/
+                                                                        linha = strtok(yytext, ",");
                                                                         material_entrega = strtok(NULL, ",");
                                                                         quant_str = strtok(NULL, ")");
                                                                         quantidade=atoi(quant_str);
@@ -1019,51 +1024,51 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 104 "trabalho3.l"
+#line 111 "trabalho3.l"
 {BEGIN 0;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 107 "trabalho3.l"
+#line 114 "trabalho3.l"
 {BEGIN(ER_ESTADO);}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 108 "trabalho3.l"
+#line 115 "trabalho3.l"
 { aux_estado = yytext; return _ESTADO;
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 110 "trabalho3.l"
+#line 117 "trabalho3.l"
 {BEGIN 0;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 113 "trabalho3.l"
+#line 120 "trabalho3.l"
 return yytext[0];
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 114 "trabalho3.l"
+#line 121 "trabalho3.l"
 return ')';
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 115 "trabalho3.l"
+#line 122 "trabalho3.l"
 ;
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 116 "trabalho3.l"
+#line 123 "trabalho3.l"
 ;
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 117 "trabalho3.l"
+#line 124 "trabalho3.l"
 ECHO;
 	YY_BREAK
-#line 1067 "lex.yy.c"
+#line 1072 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(ER_MANUTENCAO):
 case YY_STATE_EOF(ER_BATERIA):
@@ -2074,7 +2079,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 117 "trabalho3.l"
+#line 124 "trabalho3.l"
 
 
 int yywrap(void) {
